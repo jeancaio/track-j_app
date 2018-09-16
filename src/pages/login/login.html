@@ -1,0 +1,32 @@
+<ion-header id="login-header">
+  <ion-navbar>
+    <ion-title>Nova Conta</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="login-content">
+  <img src="assets/imgs/splash.png"/>
+
+  <div class="login-box">
+    <form [formGroup]="loginData" (ngSubmit)="login()">
+      <ion-list>
+        <ion-row>
+          <ion-item>
+            <ion-input type="email" formControlName="email" placeholder="email"></ion-input>
+          </ion-item>
+        </ion-row>
+
+        <ion-row>
+          <ion-item>
+            <ion-input type="password" formControlName="password" placeholder="password"></ion-input>
+          </ion-item>
+        </ion-row>
+      </ion-list>
+
+      <ion-row>
+        <button ion-button block round type="submit" [disabled]="!loginData.valid">Entrar</button>
+      </ion-row>
+
+    </form>
+  </div>
+</ion-content>

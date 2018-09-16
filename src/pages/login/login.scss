@@ -1,0 +1,57 @@
+.ios {
+  page-login{
+    ion-title{
+      padding-top: 12px !important;
+    }
+
+    ion-icon {
+      font-size: 20px !important; //Preferred size here
+    }
+    .back-button {
+      padding-bottom: 12px;
+    }
+  }
+}
+
+.md {
+  page-login{
+    .toolbar-content {
+      padding-right: 50px;
+    }
+  }
+}
+
+page-login {
+  .login-content {
+    background: #eeeeee;
+
+    .login-box {
+      padding: 30px;
+    }
+
+    ion-item {
+      border-radius: 30px !important;
+      padding-left: 30px !important;
+      font-size: 0.9em;
+      margin-bottom: 10px;
+      border: 1px solid #ffffff;
+      border-bottom: 0 !important;
+      box-shadow: none !important;
+    }
+
+    .item-inner {
+      border-bottom-color: #ffffff !important;
+      box-shadow: none !important;
+    }
+
+    .img {
+      height: 150px;
+      width: 380px;
+    }
+
+    .register {
+      padding: 20px;
+      color: #616161;
+    }
+  }
+}
