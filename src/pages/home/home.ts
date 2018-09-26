@@ -21,9 +21,10 @@ export class HomePage {
   directionsDisplay = new google.maps.DirectionsRenderer;
   public token_cliente: string;
   public token_veiculo: string
-  public position: Array<string> = [];
-  public latitude: Array<string> = [];
-  public longitude: Array<string> = [];
+  public position: string;
+  public latitude: string;
+  public longitude: string;
+  public horario: string;
 
 
   constructor(
@@ -39,14 +40,15 @@ export class HomePage {
   }
 
   lastPosition() {
-    this.token_cliente = "bf9ccc1ad1ae3ff885a7d9452615743b"
-    this.token_veiculo = "053dcf74c70df99ae23446a061ad038e"
+    this.token_cliente = "0f7afadfbaae30c60ea5af4e4144be2b"
+    this.token_veiculo = "fb24239cefa19d5f025cceae7b63cb54"
 
     this.lastPositionService.getLastPosition(this.token_cliente, this.token_veiculo)
       .subscribe(posicao => {
         console.log(posicao)
         this.latitude = posicao.coordenadas_geograficas.split(',')[0];
         this.longitude = posicao.coordenadas_geograficas.split(',')[1];
+        this.horario = new Date(posicao.captured_at).toISOString()
         this.displayMap();
       }, err => {
         console.log(err);
@@ -67,6 +69,10 @@ export class HomePage {
     const map = new google.maps.Map(this.mapElement.nativeElement, options)
 
     this.addMarker(location, map)
+
+    setInterval(() => {
+      this.atualizarLocalizacao(map)
+    }, 5000);
   }
 
   addMarker(position, map) {
@@ -75,6 +81,19 @@ export class HomePage {
       map,
       // icon: "http://investconconsorcios.com.br/images/icones-consoricos/icone-carro.png"
     })
+  }
+
+  atualizarLocalizacao(map) {
+    this.lastPositionService.getLastPosition(this.token_cliente, this.token_veiculo)
+      .subscribe(posicao => {
+        console.log(posicao)
+        this.latitude = posicao.coordenadas_geograficas.split(',')[0];
+        this.longitude = posicao.coordenadas_geograficas.split(',')[1];
+        this.horario = new Date(posicao.captured_at).toISOString();
+        this.addMarker(new google.maps.LatLng(this.latitude, this.longitude), map)
+      }, err => {
+        console.log(err);
+      });
   }
 
   calculateAndDisplayRoute() {

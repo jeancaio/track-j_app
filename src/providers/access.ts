@@ -47,9 +47,9 @@ export class AccessProvider {
 
   login(login: LoginModel) {
     return Observable.create(observer => {
-      // this.http.post('http://track-j.herokuapp.com/http_authenticate?token_notificacao=' + this.token_notificacao, login)
+      this.http.post('http://track-j.herokuapp.com/http_authenticate?token_notificacao=' + this.token_notificacao, login)
       // this.http.post('http://192.168.0.107:3000/http_authenticate?token_notificacao=' + this.token_notificacao, login)
-      this.http.post('http://192.168.10.235:3000/http_authenticate?token_notificacao=' + this.token_notificacao, login)
+      // this.http.post('http://192.168.10.235:3000/http_authenticate?token_notificacao=' + this.token_notificacao, login)
         .subscribe(data => {
           this.localstorage.saveSessao(data);
           observer.next(data);
