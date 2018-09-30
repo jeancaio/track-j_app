@@ -8,6 +8,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LastPositionServiceProvider } from '../providers/last-position-service/last-position-service';
+import { VeiculosServiceProvider } from '../providers/veiculos-service';
 import { Util } from '../utility/util'
 import { AccessProvider } from '../providers/access'
 import { LocalStorage } from '../providers/localstorage'
@@ -34,7 +35,8 @@ import { IonicStorageModule } from '@ionic/storage';
     AccessProvider,
     LocalStorage,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    LastPositionServiceProvider
+    LastPositionServiceProvider,
+    VeiculosServiceProvider
   ]
 })
 export class AppModule {}

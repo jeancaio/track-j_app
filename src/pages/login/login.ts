@@ -3,6 +3,7 @@ import { IonicPage, MenuController, NavController, NavParams } from 'ionic-angul
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Util } from '../../utility/util'
 import { HomePage } from '../home/home';
+import { VeiculosPage } from '../veiculos/veiculos';
 import { AccessProvider } from '../../providers/access'
 
 /**
@@ -50,7 +51,7 @@ export class LoginPage implements OnInit {
     this.access.login(this.loginData.value).subscribe(data => {
       this.util.loading.dismiss();
       this.util.presentToast('Bem-vindo(a)!');
-      this.navCtrl.setRoot('HomePage');
+      this.navCtrl.setRoot('VeiculosPage');
     }, err => {
       this.util.loading.dismiss();
       this.msg = JSON.parse(err);
