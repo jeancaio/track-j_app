@@ -20,12 +20,13 @@ export class HomePage {
   directionsService = new google.maps.DirectionsService;
   directionsDisplay = new google.maps.DirectionsRenderer;
   public token_cliente: string;
-  public token_veiculo: string
+  public token_veiculo: string;
   public position: string;
   public latitude: string;
   public longitude: string;
   public horario: string;
-
+  public tempo: any;
+  public velocidade: any;
 
   constructor(
     public navCtrl: NavController,
@@ -36,7 +37,6 @@ export class HomePage {
 
   ionViewDidLoad(){
     this.lastPosition()
-
   }
 
   lastPosition() {
@@ -50,6 +50,7 @@ export class HomePage {
         this.longitude = posicao.coordenadas_geograficas.split(',')[1];
         this.horario = new Date(posicao.captured_at).toISOString()
         this.displayMap();
+        this.toSpeed()
       }, err => {
         console.log(err);
       });
@@ -91,22 +92,45 @@ export class HomePage {
         this.longitude = posicao.coordenadas_geograficas.split(',')[1];
         this.horario = new Date(posicao.captured_at).toISOString();
         this.addMarker(new google.maps.LatLng(this.latitude, this.longitude), map)
+        this.toSpeed()
       }, err => {
         console.log(err);
       });
   }
 
-  calculateAndDisplayRoute() {
+  calculatedistance(origem, destino) {
     this.directionsService.route({
-      origin: this.start,
-      destination: this.end,
+      origin: origem,
+      destination: destino,
       travelMode: 'DRIVING'
     }, (response, status) => {
       if (status === 'OK') {
-        this.directionsDisplay.setDirections(response);
+        let distancia = response.routes[0].legs[0].distance.text
+        this.calculateSpeed(distancia, this.tempo)
       } else {
-        window.alert('Directions request failed due to ' + status);
+        window.alert('Ocorreu um erro ao calcular a velocidade ' + status);
       }
+    });
+  }
+
+  calculateSpeed(distancia, tempo) {
+    if (distancia.split(" ")[1] === 'm') {
+      distancia = distancia.split(" ")[0] / 1000
+    } else {
+      distancia = distancia.split(" ")[0].split(',').join('.')
+    }
+    this.velocidade = (distancia / (tempo / 3600)).toFixed(1)
+    console.log("VELOCIDADE")
+  }
+
+  toSpeed() {
+    this.lastPositionService.toSpeed(this.token_veiculo)
+    .subscribe(to_speed => {
+      console.log(to_speed)
+      this.calculatedistance(to_speed.inicio, to_speed.final)
+      this.tempo = to_speed.tempo
+    }, err => {
+      console.log(err);
     });
   }
 
