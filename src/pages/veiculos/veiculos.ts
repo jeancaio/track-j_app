@@ -46,14 +46,7 @@ export class VeiculosPage {
 
   postPositions(){
     this.geolocation.getCurrentPosition().then((resp) => {
-     // resp.coords.latitude
-     // resp.coords.longitude
-     this.veiculosService.postCoordinates()
-     .subscribe(resp => {
-       debugger
-     }, err => {
-       console.log(err)
-     })
+     this.veiculosService.postCoordinates(resp.coords.latitude + "," + resp.coords.longitude)
     }).catch((error) => {
       console.log('Error getting location', error);
     });
