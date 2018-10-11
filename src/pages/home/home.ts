@@ -92,6 +92,7 @@ export class HomePage {
         this.longitude = posicao.coordenadas_geograficas.split(',')[1];
         this.horario = new Date(posicao.captured_at).toISOString();
         this.addMarker(new google.maps.LatLng(this.latitude, this.longitude), map)
+        map.setCenter(new google.maps.LatLng(this.latitude, this.longitude))
         this.toSpeed()
       }, err => {
         console.log(err);
