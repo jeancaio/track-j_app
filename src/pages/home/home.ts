@@ -80,7 +80,7 @@ export class HomePage {
     return new google.maps.Marker({
       position,
       map,
-      // icon: "http://investconconsorcios.com.br/images/icones-consoricos/icone-carro.png"
+      icon: "https://uploaddeimagens.com.br/images/001/665/191/original/icone_car.png"
     })
   }
 
