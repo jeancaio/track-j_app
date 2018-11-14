@@ -120,7 +120,10 @@ export class HomePage {
     } else {
       distancia = distancia.split(" ")[0].split(',').join('.')
     }
-    this.velocidade = (distancia / (tempo / 3600)).toFixed(1)
+    var vel = (distancia / (tempo / 3600)).toFixed(1)
+
+    if (vel < 150)
+      this.velocidade = vel
     console.log("VELOCIDADE")
   }
 
