@@ -13,6 +13,7 @@ import { Util } from '../utility/util'
 import { AccessProvider } from '../providers/access'
 import { LocalStorage } from '../providers/localstorage'
 import { IonicStorageModule } from '@ionic/storage';
+import { Geolocation } from '@ionic-native/geolocation';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { IonicStorageModule } from '@ionic/storage';
     LocalStorage,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     LastPositionServiceProvider,
-    VeiculosServiceProvider
+    VeiculosServiceProvider,
+    Geolocation
   ]
 })
 export class AppModule {}
