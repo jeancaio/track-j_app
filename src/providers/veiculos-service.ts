@@ -30,4 +30,24 @@ export class VeiculosServiceProvider {
 
   }
 
+  postCoordinates(coordinates){
+    let header = new Headers(coordinates);
+    header.append("Content-Type", 'application/json');
+
+    let params = new URLSearchParams();
+    params.append("token", "fb24239cefa19d5f025cceae7b63cb54");
+    params.append("coordenadas_geograficas", coordinates);
+
+    let options = new RequestOptions({ headers: header, params: params })
+
+    let data=JSON.stringify({token:"fb24239cefa19d5f025cceae7b63cb54",coordenadas_geograficas:coordinates});
+
+    this.http.post('http://track-j.herokuapp.com/api/v1/posicoes/post_posicoes', data , { headers: header })
+      .subscribe(res => {
+        console.log("success "+res);
+      }, (err) => {
+        console.log("failed");
+      });
+    }
+
 }
